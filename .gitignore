@@ -21,3 +21,4 @@ perf.data*
 SEM_CPP/lib/TFM-Pvalue/TFMpvalue-*
 data
 SEM_CPP/examples/temp.txt
+.vscode/
