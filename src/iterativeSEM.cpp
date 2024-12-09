@@ -293,19 +293,14 @@ int main(int argc, char **argv){
 }
 
 // Requires: .pwm file uses '\t' to separate fields
-// Effects: fills in PWM_data and returns the second field of the first line
+// Effects: fills in PWM_data
 // in the .pwm file specified
-string read_pwm(Dataset &data, string file){
+void read_pwm(Dataset &data, string file){
     ifstream fin(file);
 #ifdef DEBUG
     assert(fin);
 #endif
     data.PWM_data.matrix_arr.clear();
-
-    string s = "";
-    // ignore first line of pwm
-    fin >> s >> s;
-    // s now contains second field
 
     string line;
     bool found_p0 = false;
@@ -373,5 +368,4 @@ string read_pwm(Dataset &data, string file){
 
     data.settings.length = data.PWM_data.matrix_arr[0].size();
 
-    return s;
 }

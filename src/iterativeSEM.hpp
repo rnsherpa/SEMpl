@@ -196,6 +196,6 @@ void writeCache(Dataset &data, sqlite3 *cacheDB,
 void connectCache(Dataset &data, const std::string &cachefile, sqlite3 *cacheDB);
 void closeCache(const std::string &cachefile, sqlite3 *cacheDB);
 
-std::string read_pwm(Dataset &data, std::string file);
+void read_pwm(Dataset &data, std::string file);
 
 #endif /* iterativeSEM_hpp */
