@@ -305,10 +305,21 @@ string read_pwm(Dataset &data, string file){
     string s = "";
     // ignore first line of pwm
     fin >> s >> s;
-
-
     // s now contains second field
-    fin.ignore(10000, '\n');
+
+    string line;
+    bool found_p0 = false;
+    while (getline(fin, line)){
+        if (line.find("P0") == 0){ // finding header line positions stream at succeeding line (start of matrix)
+            found_p0 = true;
+            break;
+        }
+    }
+
+    if (!found_p0) {
+        throw std::runtime_error("Input file format may be incorrect. Could not find transfac-format matrix header (line begins with 'P0').");
+    }
+
     fin.ignore(10000, '\t');
     int matrix_element = -1;
     for(int column = 0; column < data.PWM_data.NUM_COLUMNS; ++column){
