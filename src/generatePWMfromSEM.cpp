@@ -130,8 +130,8 @@ void generatePWMfromSEM(const Dataset & data,
     }
 
     // formatting
-    OUTF << "BF\t" + data.TF_name + '\n';
-    OUTF << "P0\tA\tC\tG\tT" + '\n';
+    OUTF << "BF\t" << data.TF_name << '\n';
+    OUTF << "P0\tA\tC\tG\tT\n";
 
     double rowsum = 0.0;
     double rowsum_pwm = 0.0;
