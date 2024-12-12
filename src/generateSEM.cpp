@@ -139,15 +139,15 @@ void generateSEM(const Dataset &data) {
     sterr_file << data.TF_name << "\tA\tC\tG\tT\n";
     // for (int j = 0; j <= max; ++j){
     for (int j = 0; j < max; ++j){
-        sem_file << j + 1 << "\t" << SNPEffect[{j, 'A'}]
-                 << "\t" << SNPEffect[{j, 'C'}]
-                 << "\t" << SNPEffect[{j, 'G'}]
-                 << "\t" << SNPEffect[{j, 'T'}]
+        sem_file << j + 1 << "\t" << fixed << SNPEffect[{j, 'A'}]
+                 << "\t" << fixed << SNPEffect[{j, 'C'}]
+                 << "\t" << fixed << SNPEffect[{j, 'G'}]
+                 << "\t" << fixed << SNPEffect[{j, 'T'}]
                  << "\n";
-        sterr_file << j + 1 << "\t" << STDErr[{j, 'A'}]
-                   << "\t" << STDErr[{j, 'C'}]
-                   << "\t" << STDErr[{j, 'G'}]
-                   << "\t" << STDErr[{j, 'T'}]
+        sterr_file << j + 1 << "\t" << fixed << STDErr[{j, 'A'}]
+                   << "\t" << fixed << STDErr[{j, 'C'}]
+                   << "\t" << fixed << STDErr[{j, 'G'}]
+                   << "\t" << fixed << STDErr[{j, 'T'}]
                    << "\n";
     }
 
