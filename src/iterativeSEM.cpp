@@ -47,13 +47,15 @@ int main(int argc, char **argv){
         {"TF_name", required_argument, NULL, 't'},
         {"genome", required_argument, NULL, 'g'},
         {"output", required_argument, NULL, 'o'},
+        {"delete_intermediates", no_argument, NULL, 'd'},
         {"readcache", required_argument, NULL,  'c'},
         {"verbose", no_argument, NULL, 'v'},
         {0, 0, 0, 0}
     };
+    bool delete_intermediates = false;
     char c = '\0';
 
-    while( (c = static_cast<char>(getopt_long_only(argc, argv, "p:m:b:t:o:c:v", long_opts, &index)) ) != -1){
+    while( (c = static_cast<char>(getopt_long_only(argc, argv, "p:m:b:t:o:d:c:v", long_opts, &index)) ) != -1){
         switch (c) {
             case 'p':
                 data.PWM_file = optarg;
@@ -91,10 +93,15 @@ int main(int argc, char **argv){
                 cout << "\t output: " << optarg << '\n';
 #endif
                 break;
+            case 'd':
+#ifdef DEBUG
+                cout << "\tdelete_intermediates\n";
+#endif
+                delete_intermediates = true;
+                break;
             case 'c':
             if(optarg){
                 data.cachefile = optarg;
-
 #ifdef DEBUG
                 cout << "\tcachefile flag: " << optarg << '\n';
 #endif
@@ -281,6 +288,19 @@ int main(int argc, char **argv){
     if(system(cmd.c_str()) != 0){
         cerr << "problem running " << cmd << endl;
     }
+
+    // delete intermediate files if delete_intermediates is true
+    if (delete_intermediates) {
+        for (int i = 0; i < total_iterations; ++i) {
+            if ("it" + std::to_string(i) != final_run) {
+                string del_cmd = "rm -rf " + data.base_dir + "/it" + std::to_string(i);
+                if (system(del_cmd.c_str()) != 0) {
+                    cerr << "problem running " << del_cmd << endl;
+                }
+            }
+        }
+    }
+
     double diff_t;
     time_t endTime;
     time(&endTime);
